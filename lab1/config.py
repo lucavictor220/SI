@@ -1,8 +1,9 @@
 config = {
     'HOST_NAME': 'localhost',
-    'IP': 80,
+    'PORT': 80,
     'TYPE_OF_PROTOCOL': '-t',
-    'TIME_INTERVAL': 0,
-    'MAX_NR_OF_MESSAGES': 0,
+    'TIME_INTERVAL': 1,
+    'MAX_NR_OF_MESSAGES': 5,
+    'MESSAGE': 'default',
 }
 
