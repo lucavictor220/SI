@@ -8,8 +8,11 @@ class TcpClient:
         self.client_socket = self.create_client()
 
     def create_client(self):
-        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket.connect((self.hostname, self.port))
+        try:
+            self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.client_socket.connect((self.hostname, self.port))
+        except Exception:
+            print 'Connection to the host: %(host)s, port: %(port)i failed.' % {"host": self.hostname, "port": self.port}
         return self.client_socket
 
     def send_message(self, message):

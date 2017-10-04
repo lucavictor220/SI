@@ -1,6 +1,7 @@
-from TcpClient import TcpClient
-from UdpClient import UdpClient
-from config import config
+from constants.config import config
+
+from clients.TcpClient import TcpClient
+from clients.UdpClient import UdpClient
 
 
 class Client:

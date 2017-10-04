@@ -1,5 +1,5 @@
-from config import config
-from tasks import tasks
+from constants.config import config
+from constants.tasks import tasks
 
 class Parser:
     def __init__(self, args):

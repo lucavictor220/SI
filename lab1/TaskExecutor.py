@@ -1,5 +1,6 @@
-from config import config
 from time import sleep
+
+from constants.config import config
 
 
 class TaskExecutor:
