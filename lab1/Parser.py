@@ -25,6 +25,9 @@ class Parser:
             index_of_scan_ports = self.args.index("-s") + 1
             ports_array = self.args[index_of_scan_ports].split('-')
             config['PORTS_TO_SCAN'] = int(ports_array[0]), int(ports_array[1])
+        if "-l" in self.args:
+            self.commands.append('SERVER')
+
         main_params = self.args[-2:]
         if len(main_params) == 2:
             config['HOST_NAME'] = main_params[0]

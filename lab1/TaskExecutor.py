@@ -2,6 +2,7 @@ from time import sleep
 from socket import error
 from constants.config import config
 from clients.TcpClient import TcpClient
+from servers.TcpServer import TcpServer
 
 
 class TaskExecutor:
@@ -37,3 +38,8 @@ class TaskExecutor:
 
         print("\n\n For the hostname %s the following ports are open:\n" % config['HOST_NAME'])
         print(open_ports)
+
+    @staticmethod
+    def server():
+        server = TcpServer()
+        server.accept_connections()

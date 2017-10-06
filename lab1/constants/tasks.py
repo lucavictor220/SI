@@ -5,5 +5,6 @@ tasks = {
     'SCAN': 'scan',
     'GET_PAGE': 'get_page',
     'PROXY': 'proxy',
-    'SEND_FILE': 'send_file'
+    'SEND_FILE': 'send_file',
+    'SERVER': 'server'
 }
