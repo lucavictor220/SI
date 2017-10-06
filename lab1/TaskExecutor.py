@@ -46,7 +46,7 @@ class TaskExecutor:
         server.accept_connections()
 
     def get_page(self):
-        request = "GET / HTTP/1.1\nHost: agora.md\r\n\r\n"
+        request = "GET / HTTP/1.1\nHost: %s\r\n\r\n" % config['HOST_NAME']
         print('# Get request on the host: %s' % config['HOST_NAME'])
         self.client.get_connection()
         self.client.send_message(request)
