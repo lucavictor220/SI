@@ -3,7 +3,7 @@ import socket
 server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = socket.gethostname()
 server_sock.bind(('127.0.0.1', 8080))
-server_sock.listen(0)
+server_sock.listen(2)
 print("Waiting for connection...")
 (client_socket, addr) = server_sock.accept()
 client_socket.sendall('Connected!\n'.encode('utf-8'))

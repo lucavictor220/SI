@@ -5,5 +5,6 @@ config = {
     'TIME_INTERVAL': 1,
     'MAX_NR_OF_MESSAGES': 5,
     'MESSAGE': 'default',
+    'PORTS_TO_SCAN': (1, 100)
 }
 

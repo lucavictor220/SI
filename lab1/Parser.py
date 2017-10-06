@@ -1,6 +1,7 @@
 from constants.config import config
 from constants.tasks import tasks
 
+
 class Parser:
     def __init__(self, args):
         self.args = args
@@ -19,6 +20,11 @@ class Parser:
         if "-m" in self.args:
             index_of_message = self.args.index("-m") + 1
             config['MESSAGE'] = self.args[index_of_message]
+        if "-s" in self.args:
+            self.commands.append('SCAN')
+            index_of_scan_ports = self.args.index("-s") + 1
+            ports_array = self.args[index_of_scan_ports].split('-')
+            config['PORTS_TO_SCAN'] = int(ports_array[0]), int(ports_array[1])
         main_params = self.args[-2:]
         if len(main_params) == 2:
             config['HOST_NAME'] = main_params[0]
@@ -29,5 +35,5 @@ class Parser:
     def get_execution_commnads(self):
         commands = self.commands
         if len(self.commands) == 0:
-            commands = tasks['SEND_MESSAGE']
+            commands = ['SEND_MESSAGE']
         return commands

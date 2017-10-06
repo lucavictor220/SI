@@ -1,3 +1,4 @@
+from socket import error
 import sys
 from constants.config import config
 from constants.tasks import tasks
@@ -18,5 +19,6 @@ execution_task = commands.pop()
 task_executor = TaskExecutor(client)
 try:
     getattr(task_executor, tasks[execution_task])()
-except Exception:
-    print("Exception occured while trying to execute %s command" % execution_task)
+except error, exc:
+    print("Exception occurred while trying to execute %s command" % execution_task)
+    print(exc)
