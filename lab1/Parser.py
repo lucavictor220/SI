@@ -27,6 +27,8 @@ class Parser:
             config['PORTS_TO_SCAN'] = int(ports_array[0]), int(ports_array[1])
         if "-l" in self.args:
             self.commands.append('SERVER')
+        if "-get" in self.args:
+            self.commands.append('GET_PAGE')
 
         main_params = self.args[-2:]
         if len(main_params) == 2:

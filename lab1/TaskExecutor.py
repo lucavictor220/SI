@@ -3,6 +3,7 @@ from socket import error
 from constants.config import config
 from clients.TcpClient import TcpClient
 from servers.TcpServer import TcpServer
+import os
 
 
 class TaskExecutor:
@@ -43,3 +44,24 @@ class TaskExecutor:
     def server():
         server = TcpServer()
         server.accept_connections()
+
+    def get_page(self):
+        request = "GET / HTTP/1.1\nHost: agora.md\r\n\r\n"
+        print('# Get request on the host: %s' % config['HOST_NAME'])
+        self.client.get_connection()
+        self.client.send_message(request)
+        webpage = ""
+        while True:
+            data = self.client.client_socket.recv(1024)
+            print data
+            webpage += data
+            if data[-5:] == "0\r\n\r\n":
+                print "DONE"
+                break
+
+        if not os.path.exists('webpages'):
+            os.makedirs('webpages')
+        file = open('webpages/webpage.html', 'w')
+        file.write(webpage)
+        file.close()
+
