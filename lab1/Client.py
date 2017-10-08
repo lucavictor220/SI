@@ -9,8 +9,8 @@ class Client:
     def factory(cls, protocol):
         client = None
         if protocol == '-t':
-            client = TcpClient(config)
+            client = TcpClient(config['HOST_NAME'], config['PORT'])
         if protocol == '-u':
-            client = UdpClient(config)
+            client = UdpClient(config['HOST_NAME'], config['PORT'])
 
         return client

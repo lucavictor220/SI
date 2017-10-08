@@ -2,9 +2,9 @@ from socket import *
 
 
 class UdpClient:
-    def __init__(self, config):
-        self.hostname = config['HOST_NAME']
-        self.port = config['PORT']
+    def __init__(self, host_name, port):
+        self.hostname = host_name
+        self.port = port
         self.client_socket = self.create_client()
 
     def create_client(self):

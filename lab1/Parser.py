@@ -29,6 +29,11 @@ class Parser:
             self.commands.append('SERVER')
         if "-get" in self.args:
             self.commands.append('GET_PAGE')
+        if "-rt" in self.args:
+            self.commands.append('PROXY')
+            index_of_target_host_name = self.args.index("-rt") + 1
+            config['TARGET_HOST_NAME'] = self.args[index_of_target_host_name]
+            config['TARGET_PORT'] = int(self.args[index_of_target_host_name + 1])
 
         main_params = self.args[-2:]
         if len(main_params) == 2:

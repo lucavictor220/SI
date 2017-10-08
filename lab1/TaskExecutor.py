@@ -30,7 +30,7 @@ class TaskExecutor:
                 continue
             try:
                 print("Trying to connect to port: %s" % index)
-                client = TcpClient(config)
+                client = TcpClient(config['HOST_NAME'], config['PORT'])
                 client.client_socket.connect((config['HOST_NAME'], index))
                 open_ports.append(index)
                 client.client_socket.close()
@@ -65,3 +65,21 @@ class TaskExecutor:
         file.write(webpage)
         file.close()
 
+    @staticmethod
+    def proxy():
+        nr_of_connections = 1
+        nr_of_messages = 0
+        proxy = TcpServer(config['HOST_NAME'], config['PORT'])
+        print("Proxy is up and waiting...")
+        while True:
+            print("Waiting for %i connection..." % nr_of_connections)
+            (client_socket, addr) = proxy.server_sock.accept()
+            source_message = client_socket.recv(1024)
+            print("message: %s" % source_message)
+            server_connection = TcpClient(config['TARGET_HOST_NAME'], config['TARGET_PORT'])
+            server_connection.get_connection()
+            server_connection.send_message(source_message)
+            print("Close connection nr %i" % nr_of_connections)
+            nr_of_messages += 1
+            nr_of_connections += 1
+            client_socket.close()
