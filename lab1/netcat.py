@@ -9,7 +9,6 @@ from TaskExecutor import TaskExecutor
 from clients.TcpClient import TcpClient
 
 parser = Parser(sys.argv)
-print(parser.get_params())
 config = parser.get_params()
 
 client = Client.factory(config['TYPE_OF_PROTOCOL'])

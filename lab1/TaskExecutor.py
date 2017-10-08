@@ -14,7 +14,8 @@ class TaskExecutor:
         self.client.get_connection()
         self.client.send_message(config['MESSAGE'])
 
-    def ping(self):
+    @staticmethod
+    def ping():
         print('Start ping command!\n')
         for _ in range(0, config['MAX_NR_OF_MESSAGES']):
             client = TcpClient(config['HOST_NAME'], config['PORT'])
@@ -30,8 +31,6 @@ class TaskExecutor:
         open_ports = []
         print('Start scan of ports')
         for index in range(config['PORTS_TO_SCAN'][0], config['PORTS_TO_SCAN'][1]):
-            if index == 445:
-                continue
             try:
                 print("Trying to connect to port: %s" % index)
                 client = TcpClient(config['HOST_NAME'], config['PORT'])
@@ -46,7 +45,7 @@ class TaskExecutor:
 
     @staticmethod
     def server():
-        server = TcpServer()
+        server = TcpServer(config['HOST_NAME'], config['PORT'])
         server.accept_connections()
 
     def get_page(self):
