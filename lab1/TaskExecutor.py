@@ -15,11 +15,15 @@ class TaskExecutor:
         self.client.send_message(config['MESSAGE'])
 
     def ping(self):
-        self.client.get_connection()
         print('Start ping command!\n')
         for _ in range(0, config['MAX_NR_OF_MESSAGES']):
+            client = TcpClient(config['HOST_NAME'], config['PORT'])
+            client.get_connection()
+            client.send_message(config['MESSAGE'])
+            client.client_socket.close()
+            print("Wait a second before sending new message")
             sleep(config['TIME_INTERVAL'])
-            self.client.send_message(config['MESSAGE'])
+
 
     @staticmethod
     def scan():
