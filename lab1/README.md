@@ -65,3 +65,82 @@ TaskExecutor class - is responsible for executing any given command using tasks 
 servers folder - have test servers which can be used to execute commands in the test environment.
 
 webpages folder - is automatically created one you run script with `-get` flag in order to store webpages.
+
+#### netcat.py
+
+In the main script there is Parser class called to get all the configurations and commands to be executed and then we call TaskExecutor passing to it TCP/UDP client. TaskExecutor class calls internally method from the commands configuration.
+
+```python
+parser = Parser(sys.argv)
+config = parser.get_params()
+
+client = Client.factory(config['TYPE_OF_PROTOCOL'])
+commands = parser.get_execution_commnads()
+
+execution_task = commands.pop()
+task_executor = TaskExecutor(client)
+try:
+    getattr(task_executor, tasks[execution_task])()
+except error, exc:
+    print("Exception occurred while trying to execute %s command" % execution_task)
+    print(exc)
+
+```
+
+
+#### config.py
+
+This configuration is responsible for all the flags send to script and which are used to describe configurations used to execute tasks.
+
+```python
+config = {
+    'HOST_NAME': 'localhost',
+    'PORT': 80,
+    'TYPE_OF_PROTOCOL': '-t',
+    'TIME_INTERVAL': 1,
+    'MAX_NR_OF_MESSAGES': 5,
+    'MESSAGE': 'default',
+    'PORTS_TO_SCAN': (1, 100),
+    'TARGET_HOST_NAME': 'localhost',
+    'TARGET_PORT': 8000
+}
+
+
+```
+
+
+#### tasks.py
+
+Tasks configuration describes all possible actions performed by netcat.py script.
+
+```python
+tasks = {
+    'SEND_MESSAGE': 'send_message',
+    'PING': 'ping',
+    'CREATE_SERVER': 'server',
+    'SCAN': 'scan',
+    'GET_PAGE': 'get_page',
+    'PROXY': 'proxy',
+    'SEND_FILE': 'send_file',
+    'SERVER': 'server'
+}
+```
+
+#### Client class
+
+Creates client by returning the instance of the class set by TYPE_OF_PROTOCOL configuration
+
+```python
+
+class Client:
+    @classmethod
+    def factory(cls, protocol):
+        client = None
+        if protocol == '-t':
+            client = TcpClient(config['HOST_NAME'], config['PORT'])
+        if protocol == '-u':
+            client = UdpClient(config['HOST_NAME'], config['PORT'])
+
+        return client
+
+```
