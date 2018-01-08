@@ -21,4 +21,4 @@ Minimal slowloris attack configuration takes less than 100 lines of code. So, in
 ### How it works
 
 In order to accomplish this laboratory work I have used a [digitalocean](https://www.digitalocean.com/) droplet(server) and created an awesome [apache](https://httpd.apache.org/) based webpage.
-![Webpage](docs/Webpage.png)
+![Webpage](./docs/Webpage.png)
