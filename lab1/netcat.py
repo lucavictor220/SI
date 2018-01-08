@@ -1,6 +1,6 @@
 from socket import error
 import sys
-from constants.config import config
+from constants.Config import Config
 from constants.tasks import tasks
 
 from Client import Client
@@ -8,10 +8,11 @@ from Parser import Parser
 from TaskExecutor import TaskExecutor
 from clients.TcpClient import TcpClient
 
+configurationClass = Config()
 parser = Parser(sys.argv)
-config = parser.get_params()
+parser.parse_params()
 
-client = Client.factory(config['TYPE_OF_PROTOCOL'])
+client = Client.factory(configurationClass.config['TYPE_OF_PROTOCOL'])
 commands = parser.get_execution_commnads()
 
 execution_task = commands.pop()

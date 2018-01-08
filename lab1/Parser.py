@@ -1,4 +1,4 @@
-from constants.config import config
+from constants.Config import Config
 from constants.tasks import tasks
 
 
@@ -7,40 +7,38 @@ class Parser:
         self.args = args
         self.commands = []
 
-    def get_params(self):
+    def parse_params(self):
+        config = Config()
         if "-u" in self.args:
-            config['TYPE_OF_PROTOCOL'] = '-u'
+            config.set_type_of_protocol('-u')
         if "-i" in self.args:
             index_of_time_interval = self.args.index("-i") + 1
+            config.set_time_interval(self.args[index_of_time_interval])
             self.commands.append('PING')
-            config['TIME_INTERVAL'] = int(self.args[index_of_time_interval])
         if "-max" in self.args:
             index_of_max = self.args.index("-max") + 1
-            config['MAX_NR_OF_MESSAGES'] = int(self.args[index_of_max])
+            config.set_max_nr_of_messages(self.args[index_of_max])
         if "-m" in self.args:
             index_of_message = self.args.index("-m") + 1
-            config['MESSAGE'] = self.args[index_of_message]
+            config.set_message(self.args[index_of_message])
         if "-s" in self.args:
-            self.commands.append('SCAN')
             index_of_scan_ports = self.args.index("-s") + 1
-            ports_array = self.args[index_of_scan_ports].split('-')
-            config['PORTS_TO_SCAN'] = int(ports_array[0]), int(ports_array[1])
+            config.set_ports_to_scan(self.args[index_of_scan_ports])
+            self.commands.append('SCAN')
         if "-l" in self.args:
             self.commands.append('SERVER')
         if "-get" in self.args:
             self.commands.append('GET_PAGE')
         if "-rt" in self.args:
-            self.commands.append('PROXY')
             index_of_target_host_name = self.args.index("-rt") + 1
-            config['TARGET_HOST_NAME'] = self.args[index_of_target_host_name]
-            config['TARGET_PORT'] = int(self.args[index_of_target_host_name + 1])
+            config.set_target_host_name(self.args[index_of_target_host_name])
+            config.set_target_port(self.args[index_of_target_host_name + 1])
+            self.commands.append('PROXY')
 
         main_params = self.args[-2:]
         if len(main_params) == 2:
-            config['HOST_NAME'] = main_params[0]
-            config['PORT'] = int(main_params[1])
-
-        return config
+            config.set_host_name(main_params[0])
+            config.set_port(main_params[1])
 
     def get_execution_commnads(self):
         commands = self.commands

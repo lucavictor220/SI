@@ -1,5 +1,5 @@
 from socket import *
-from constants.config import config
+from constants.Config import config
 
 
 class TcpServer:

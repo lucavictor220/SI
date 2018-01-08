@@ -1,8 +1,9 @@
 from time import sleep
 from socket import error
-from constants.config import config
+from constants.Config import Config
 from clients.TcpClient import TcpClient
 from servers.TcpServer import TcpServer
+from constants.Config import Config as ConfigurationClass
 import os
 
 
@@ -10,30 +11,32 @@ class TaskExecutor:
     def __init__(self, client):
         self.client = client
 
+
     def send_message(self):
         self.client.get_connection()
-        self.client.send_message(config['MESSAGE'])
+        self.client.send_message(config.config['MESSAGE'])
 
     @staticmethod
     def ping():
+        config_class = ConfigurationClass()
         print('Start ping command!\n')
-        for _ in range(0, config['MAX_NR_OF_MESSAGES']):
-            client = TcpClient(config['HOST_NAME'], config['PORT'])
+        for _ in range(0, Config.config['MAX_NR_OF_MESSAGES']):
+            client = TcpClient(config_class.config['HOST_NAME'], config_class.config['PORT'])
             client.get_connection()
-            client.send_message(config['MESSAGE'])
+            client.send_message(config_class.config['MESSAGE'])
             client.client_socket.close()
             print("Wait a second before sending new message")
-            sleep(config['TIME_INTERVAL'])
+            sleep(config_class.config['TIME_INTERVAL'])
 
 
     @staticmethod
     def scan():
         open_ports = []
         print('Start scan of ports')
-        for index in range(config['PORTS_TO_SCAN'][0], config['PORTS_TO_SCAN'][1]):
+        for index in range(*config_class.config['PORTS_TO_SCAN']):
             try:
                 print("Trying to connect to port: %s" % index)
-                client = TcpClient(config['HOST_NAME'], config['PORT'])
+                client = TcpClient(config_class.config['HOST_NAME'], config_class.config['PORT'])
                 client.client_socket.connect((config['HOST_NAME'], index))
                 open_ports.append(index)
                 client.client_socket.close()
@@ -86,3 +89,4 @@ class TaskExecutor:
             nr_of_messages += 1
             nr_of_connections += 1
             client_socket.close()
+
