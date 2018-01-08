@@ -22,7 +22,7 @@ Minimal slowloris attack configuration takes less than 100 lines of code. So, in
 
 In order to accomplish this laboratory work I have used a [digitalocean](https://www.digitalocean.com/) droplet(server) and created an awesome [apache](https://httpd.apache.org/) based webpage.
 
-![Webpage](./docs/Webpage.png)
+![Webpage|500x200, 20%](./docs/Webpage.png)
 
 
 In order to show that it works I used ssh to connect to droplet and to monitor the amount of `ESTABLISHED` connections on port 80.
@@ -40,3 +40,8 @@ Since we used all the possible connections with attack users can't view webpage.
 ![Shell](./docs/Cant_connect.png)
 
 Closed connections are created again by script, thus ensuring that amount of used connections reaches upper bound all the time.
+
+### Conclusion
+
+I find this laboratory work really knowledge oriented. I've learned more about the way http protocol handles headers and connections. In addition I've 
+learned the basics about apache2 configuration and states of the connections listed by netstat command.
