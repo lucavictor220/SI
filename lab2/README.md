@@ -43,5 +43,5 @@ Closed connections are created again by script, thus ensuring that amount of use
 
 ### Conclusion
 
-I find this laboratory work really knowledge oriented. I've learned more about the way http protocol handles headers and connections. In addition I've 
+I find this laboratory work interesting and knowledge oriented. I've learned more about the way http protocol handles headers and connections. In addition I've 
 learned the basics about apache2 configuration and states of the connections listed by netstat command.
