@@ -23,3 +23,20 @@ Minimal slowloris attack configuration takes less than 100 lines of code. So, in
 In order to accomplish this laboratory work I have used a [digitalocean](https://www.digitalocean.com/) droplet(server) and created an awesome [apache](https://httpd.apache.org/) based webpage.
 
 ![Webpage](./docs/Webpage.png)
+
+
+In order to show that it works I used ssh to connect to droplet and to monitor the amount of `ESTABLISHED` connections on port 80.
+Before the attack it is 0
+
+![Shell](./docs/Before_attack.png)
+
+After starting the script we can observe that the amount of connections with state `ESTABLISHED` raised and reached the upper limit which in
+my case is 279
+
+![Shell](./docs/After_attack.png)
+
+Since we used all the possible connections with attack users can't view webpage.
+
+![Shell](./docs/Cant_connect.png)
+
+Closed connections are created again by script, thus ensuring that amount of used connections reaches upper bound all the time.
