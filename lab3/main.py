@@ -1,4 +1,6 @@
+# we can add whaterver language letters as long as it is an array of those
 from English_dict import ENGLISH_LETTERS
+# we should have the most frequent letter in the language
 from English_dict import most_frequent_letter
 
 from messages import ENCRYPTED_MESSAGES
@@ -25,15 +27,8 @@ def find_most_frequent_letters(frequency_dict):
     return [key for key, value in frequency_dict.items() if value == max_value]
 
 
-freq_dict = create_frequency_dict(encrypted_message)
-
-mf_letter = find_most_frequent_letters(freq_dict)[0]
-
-
 def compute_shift_guess(language_dict, most_frequent_letter, message_mf_letter):
     return language_dict.index(most_frequent_letter) - language_dict.index(message_mf_letter)
-
-shift_guess = compute_shift_guess(ENGLISH_LETTERS, most_frequent_letter, mf_letter)
 
 
 def decrypt_message(shift_guess, message):
@@ -49,5 +44,10 @@ def decrypt_message(shift_guess, message):
 
     return decrypted_message
 
+freq_dict = create_frequency_dict(encrypted_message)
+mf_letter = find_most_frequent_letters(freq_dict)[0]
+shift_guess = compute_shift_guess(ENGLISH_LETTERS, most_frequent_letter, mf_letter)
+
 message = decrypt_message(shift_guess, encrypted_message)
+print(shift_guess)
 print(message)
